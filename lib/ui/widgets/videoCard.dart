@@ -4,6 +4,7 @@ import 'package:elearning/ui/pages/video.dart';
 import 'package:elearning/ui/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as material;
+import 'package:flutter/material.dart';
 
 class VideoCard extends material.StatelessWidget {
   final bool long;
@@ -79,7 +80,7 @@ class VideoCard extends material.StatelessWidget {
               child: material.GestureDetector(
                 child: material.Container(
                   padding: material.EdgeInsets.fromLTRB(0, 14, 0, 14),
-                  decoration: material.BoxDecoration(gradient: Colors().waves),
+                  decoration: material.BoxDecoration(gradient: Colorss().waves),
                   child: material.Row(
                     mainAxisAlignment: material.MainAxisAlignment.spaceEvenly,
                     children: <material.Widget>[
@@ -98,7 +99,7 @@ class VideoCard extends material.StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    CupertinoPageRoute(
+                    MaterialPageRoute(
                       builder: (context) => VideoPage(),
                     ),
                   );
@@ -111,6 +112,7 @@ class VideoCard extends material.StatelessWidget {
     );
   }
 }
+
 // import 'package:elearning/theme/box_icons_icons.dart';
 // import 'package:elearning/theme/config.dart';
 // import 'package:elearning/ui/pages/video.dart';
@@ -202,11 +204,12 @@ class VideoCardclass extends material.StatelessWidget {
               child: material.GestureDetector(
                 child: material.Container(
                   padding: material.EdgeInsets.fromLTRB(0, 14, 0, 14),
-                  decoration: material.BoxDecoration(gradient: Colors().waves),
+                  decoration: material.BoxDecoration(gradient: Colorss().waves),
                   child: material.Row(
                     mainAxisAlignment: material.MainAxisAlignment.spaceEvenly,
                     children: <material.Widget>[
-                      material.Icon(BoxIcons.bx_play_circle, color: material.Colors.white),
+                      material.Icon(BoxIcons.bx_play_circle,
+                          color: material.Colors.white),
                       material.Text(
                         "Watch Lecture",
                         style: material.TextStyle(

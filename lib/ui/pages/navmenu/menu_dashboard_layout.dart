@@ -2,8 +2,10 @@ import 'package:elearning/services/api.dart';
 import 'package:elearning/services/user_details_api_client.dart';
 import 'package:elearning/theme/config.dart' as config;
 import 'package:elearning/ui/pages/home.dart';
+import 'package:elearning/ui/widgets/sectionHeader.dart';
 import 'package:flutter/material.dart';
 import 'package:elearning/ui/pages/navmenu/dashboard.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'menu.dart';
 
@@ -25,12 +27,12 @@ class _MenuDashboardLayoutState extends State<MenuDashboardLayout>
   User? user; // Define the variable to hold user details
   bool isCollapsed = true;
   double? screenWidth, screenHeight;
-  final Duration duration = const Duration(milliseconds: 200);
+  final Duration duration = const Duration(milliseconds: 100);
   late AnimationController _controller;
   Animation<double>? _scaleAnimation;
   Animation<double>? _menuScaleAnimation;
   Animation<Offset>? _slideAnimation;
-   String userName= 'user'; // Add this variable
+  String userName = 'user'; // Add this variable
 
   @override
   void initState() {
@@ -107,41 +109,153 @@ class _MenuDashboardLayoutState extends State<MenuDashboardLayout>
     Size size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;
-
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      body: Stack(
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              gradient: config.Colors().waves,
+// Function to show exit confirmation dialog
+    Future<bool> showExitPopup() async {
+      return await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Exit App'),
+              content: Text('Do you want to exit the app?'),
+              actions: [
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text('No'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text('Yes'),
+                ),
+              ],
             ),
-          ),
-          Menu(
+          ) ??
+          false;
+    }
+
+    return WillPopScope(
+      onWillPop: showExitPopup,
+      child: Scaffold(
+        backgroundColor: backgroundColor,
+        body: Stack(
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                gradient: config.Colorss().waves,
+              ),
+            ),
+            Menu(
+                onMenuTap: onMenuTap,
+                slideAnimation: _slideAnimation,
+                menuAnimation: _menuScaleAnimation,
+                onMenuItemClicked: onMenuItemClicked,
+                userName: userName),
+            Dashboard(
+              duration: duration,
               onMenuTap: onMenuTap,
-              slideAnimation: _slideAnimation,
-              menuAnimation: _menuScaleAnimation,
-              onMenuItemClicked: onMenuItemClicked,
-              userName: userName),
-          Dashboard(
-            duration: duration,
-            onMenuTap: onMenuTap,
-            scaleAnimation: _scaleAnimation,
-            isCollapsed: isCollapsed,
-            screenWidth: screenWidth,
-            child: user != null
-                ? Home(
-                    onMenuTap: onMenuTap,
-                    user: user!,
-                  )
-                : Center(
-                    child: CircularProgressIndicator(),
-                  ),
-          ),
-        ],
+              scaleAnimation: _scaleAnimation,
+              isCollapsed: isCollapsed,
+              screenWidth: screenWidth,
+              child: user != null
+                  ? Home(
+                      onMenuTap: onMenuTap,
+                      user: user!,
+                    )
+                  // : Center(
+                  //     child: CircularProgressIndicator(),
+                  //   ),
+                  : LoadingDashboard(),
+              // child: Home(
+              //   onMenuTap: onMenuTap,
+              //   user: user ?? User.defaultUser(),
+              // ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class LoadingDashboard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.grey[900]!, Colors.grey[500]!],
+            begin: Alignment(-1, -1),
+            end: Alignment(1, 1),
+          ),
+        ),
+        child: Center(
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverFixedExtentList(
+                delegate: SliverChildListDelegate.fixed([Container()]),
+                itemExtent: screenHeight * 0.36,
+              ),
+              SliverToBoxAdapter(
+                child: SectionHeader(
+                  text: 'Recommended Lectures',
+                  onPressed: () {},
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 245,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 1,
+                    itemBuilder: (context, index) {
+                      return VideoCardPlaceholder();
+                    },
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: SectionHeader(
+                  text: 'Revision Lectures',
+                  onPressed: () {},
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 245,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 4,
+                    itemBuilder: (context, index) {
+                      return VideoCardPlaceholder();
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class VideoCardPlaceholder extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(8.0),
+      width: 150,
+      height: 200,
+      color: Colors.grey[200],
     );
   }
 }

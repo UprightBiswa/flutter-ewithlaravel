@@ -66,5 +66,18 @@ class User {
   );
 }
 
-
+// Static method for creating a default user
+  static User defaultUser() {
+    return User(
+      id: 0,
+      name: 'Default User',
+      email: '',
+      phoneNumber: '',
+      address: '',
+      status: 0,
+      roleId: 0,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+  }
 }

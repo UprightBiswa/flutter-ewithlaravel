@@ -26,7 +26,7 @@ class StatsCard extends material.StatelessWidget {
               child: material.GestureDetector(
                 child: material.Container(
                   padding: material.EdgeInsets.fromLTRB(0, 14, 0, 14),
-                  decoration: material.BoxDecoration(gradient: Colors().waves),
+                  decoration: material.BoxDecoration(gradient: Colorss().waves),
                   child: material.Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: material.Row(

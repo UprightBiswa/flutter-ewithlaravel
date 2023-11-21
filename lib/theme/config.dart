@@ -35,7 +35,7 @@ class App {
   }
 }
 
-class Colors {
+class Colorss {
   Color _mainColor = Color(0xFFFFFFFF);
   Color _secondColor = Color(0xFFF5F6FC);
   Color _accentColor = Color(0xFF03A9F4);

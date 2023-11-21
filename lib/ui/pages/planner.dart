@@ -12,7 +12,7 @@ class PlannerPage extends StatelessWidget {
   PlannerPage({
     Key? key,
     required this.onMenuTap,
-    required this.user
+    required this.user,
   }) : super(key: key);
   final Function? onMenuTap;
   final User user;
@@ -21,7 +21,7 @@ class PlannerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: config.Colors().secondColor(1),
+      backgroundColor: config.Colorss().secondColor(1),
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -30,7 +30,7 @@ class PlannerPage extends StatelessWidget {
               slivers: <Widget>[
                 SliverFixedExtentList(
                     delegate: SliverChildListDelegate.fixed([Container()]),
-                    itemExtent: MediaQuery.of(context).size.height * 0.16),
+                    itemExtent: MediaQuery.of(context).size.height * 0.22),
                 SliverToBoxAdapter(
                   child: SectionHeader(
                     text: 'Today\'s Work',
@@ -87,7 +87,7 @@ class PlannerPage extends StatelessWidget {
               controller: controller,
               expanded: false,
               onMenuTap: onMenuTap,
-               userName: user.name, // Use user.name directly here
+              userName: user.name, // Use user.name directly here
             ),
           )
         ],

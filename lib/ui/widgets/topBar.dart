@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:elearning/services/api.dart';
 import 'package:elearning/theme/box_icons_icons.dart';
+import 'package:elearning/ui/pages/course_DetailsPage.dart';
 import 'package:elearning/ui/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as material;
@@ -28,39 +28,37 @@ class TopBar extends StatefulWidget {
   _TopBarState createState() => _TopBarState();
 }
 
-final List<IconData> courseIcons = [
-  BoxIcons.bx_book,
-  BoxIcons.bx_globe,
-  BoxIcons.bx_polygon,
-  // Add more icons as needed
-];
-
-final List<Color> courseColors = [
-  Colors.red,
-  Colors.blue,
-  Colors.green,
-  // Add more colors as needed
-];
-
-IconData getRandomIcon(int index) {
-  final random = Random();
-  return courseIcons[random.nextInt(courseIcons.length)];
-}
-
-Color getRandomColor(int index) {
-  final random = Random();
-  return courseColors[random.nextInt(courseColors.length)];
-}
-
 class _TopBarState extends State<TopBar> {
-  int tab = 0;
+  // int tab = 0;
   List<dynamic> courseData = []; // Initialize the course data list
-
+// Define a list of fixed colors for courses
+  final List<Color> fixedCourseColors = [
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    // Add more colors as needed
+  ];
+  final List<IconData> fixedcourseIcons = [
+    BoxIcons.bx_book,
+    BoxIcons.bx_globe,
+    BoxIcons.bx_polygon,
+    // Add more icons as needed
+  ];
   @override
   void initState() {
     super.initState();
     // Fetch course data when the widget is initialized
     fetchDataFromAPI();
+  }
+
+  Color getFixedColor(int index) {
+    // Use the modulo operator to cycle through fixed colors
+    return fixedCourseColors[index % fixedCourseColors.length];
+  }
+
+  IconData getFixedIcon(int index) {
+    // Use the modulo operator to cycle through fixed colors
+    return fixedcourseIcons[index % fixedcourseIcons.length];
   }
 
   Future<void> fetchDataFromAPI() async {
@@ -118,11 +116,11 @@ class _TopBarState extends State<TopBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: CupertinoColors.white,
+      color: CupertinoColors.systemTeal.highContrastColor,
       width: MediaQuery.of(context).size.width,
       height: widget.expanded
-          ? MediaQuery.of(context).size.height * 0.36
-          : MediaQuery.of(context).size.height * 0.19,
+          ? MediaQuery.of(context).size.height * 0.43
+          : MediaQuery.of(context).size.height * 0.22,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -201,49 +199,72 @@ class _TopBarState extends State<TopBar> {
             ),
           ),
           widget.expanded
-              ? Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.165,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: courseData.length,
-                    itemBuilder: (context, index) {
-                      final course = courseData[index];
-                      final icon = getRandomIcon(index);
-                      final color = getRandomColor(index);
-
-                      return Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 15, 10, 30),
-                        child: CardWidget(
-                          gradient: false,
-                          button: true,
-                          duration: 200,
-                          border: tab == index
-                              ? Border(
-                                  bottom: BorderSide(
-                                    color: color,
-                                    width: 5,
-                                  ),
-                                )
-                              : null,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Icon(icon),
-                                Text(course['course_name']),
-                              ],
-                            ),
-                          ),
-                          func: () {
-                            setState(() {
-                              tab = index;
-                            });
-                          },
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+                      child: Text(
+                        'Courses',
+                        style: TextStyle(
+                          color: Color(0xFF343434),
+                          fontSize: 24,
+                          fontFamily: 'Red Hat Display',
+                          fontWeight: FontWeight.w600,
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.165,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: courseData.length,
+                        itemBuilder: (context, index) {
+                          final course = courseData[index];
+                          final icon = getFixedIcon(index);
+                          final color = getFixedColor(index);
+
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 15, 10, 30),
+                            child: CardWidget(
+                              gradient: true,
+                              //color: CupertinoColors.systemPurple,
+                              button: true,
+                              duration: 200,
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: color,
+                                  width: 5,
+                                ),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Icon(icon),
+                                    Text(course['course_name']),
+                                  ],
+                                ),
+                              ),
+                              func: () {
+                                // Navigate to the new page, pass the course ID
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CourseDetailsPage(
+                                      course: course,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
                 )
               : Container(),
         ],

@@ -49,10 +49,10 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
       }
 
       // Replace with your API endpoint
-     // final apiUrl = Uri.parse('http://192.168.29.48/api/students');
+      // final apiUrl = Uri.parse('http://192.168.29.48/api/students');
       // final apiUrl = Uri.parse(baseURL + 'students');
       final apiUrl = Uri.parse('$baseURL/students');
-      
+
       final response = await http.get(
         apiUrl,
         headers: {
@@ -209,7 +209,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
     }
 
     return CupertinoPageScaffold(
-      backgroundColor: config.Colors().secondColor(1),
+      backgroundColor: config.Colorss().secondColor(1),
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -219,7 +219,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                     slivers: <Widget>[
                       SliverFixedExtentList(
                         delegate: SliverChildListDelegate.fixed([Container()]),
-                        itemExtent: MediaQuery.of(context).size.height * 0.23,
+                        itemExtent: MediaQuery.of(context).size.height * 0.25,
                       ),
                       SliverToBoxAdapter(
                         child: SectionHeader(
@@ -265,7 +265,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                     slivers: <Widget>[
                       SliverFixedExtentList(
                         delegate: SliverChildListDelegate.fixed([Container()]),
-                        itemExtent: MediaQuery.of(context).size.height * 0.23,
+                        itemExtent: MediaQuery.of(context).size.height * 0.25,
                       ),
                       SliverToBoxAdapter(
                         child: SectionHeader(
@@ -310,7 +310,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.07,
+                      height: MediaQuery.of(context).size.height * 0.08,
                       color: material.Colors.white,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
