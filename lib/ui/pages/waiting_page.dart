@@ -1,11 +1,12 @@
 import 'package:elearning/ui/pages/login.dart'; // Import the LoginPage
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class WaitingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: Center(
+    return Scaffold(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -38,7 +39,8 @@ class WaitingPage extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   CupertinoPageRoute(
-                    builder: (context) => LoginPage(), // Navigate to the LoginPage
+                    builder: (context) =>
+                        LoginPage(), // Navigate to the LoginPage
                   ),
                 );
               },

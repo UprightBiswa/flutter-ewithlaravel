@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:elearning/services/api.dart';
 import 'package:elearning/theme/box_icons_icons.dart';
@@ -49,6 +50,14 @@ class _TopBarState extends State<TopBar> {
     super.initState();
     // Fetch course data when the widget is initialized
     fetchDataFromAPI();
+    // Check if data is not present, then set up a periodic timer
+    // if (courseData.isEmpty) {
+    //   // Set up a periodic timer to fetch data every second
+    //   Timer.periodic(Duration(seconds: 1), (timer) {
+    //     fetchDataFromAPI();
+    //     print('Looping for state changes');
+    //   });
+    // }
   }
 
   Color getFixedColor(int index) {
@@ -116,7 +125,7 @@ class _TopBarState extends State<TopBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: CupertinoColors.systemTeal.highContrastColor,
+      color: CupertinoColors.systemTeal.darkColor,
       width: MediaQuery.of(context).size.width,
       height: widget.expanded
           ? MediaQuery.of(context).size.height * 0.43

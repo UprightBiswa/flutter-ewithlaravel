@@ -1,5 +1,6 @@
 import 'package:elearning/services/api_service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:elearning/ui/pages/navmenu/menu_dashboard_layout.dart';
 import 'package:elearning/ui/pages/registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
         // Navigate to MenuDashboardLayout on successful login
         Navigator.pushReplacement(
           context,
-          CupertinoPageRoute(
+          MaterialPageRoute(
             builder: (context) => MenuDashboardLayout(userToken: token),
           ),
         );
@@ -97,15 +98,15 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  CupertinoColors.systemBlue,
-                  CupertinoColors.systemIndigo,
+                  Colors.blue,
+                  Colors.indigo,
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -131,12 +132,42 @@ class _LoginPageState extends State<LoginPage> {
                   CupertinoTextField(
                     controller: _emailController,
                     placeholder: 'Email',
+                    prefix: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Icon(
+                          CupertinoIcons.mail,
+                          color: CupertinoTheme.brightnessOf(context) ==
+                                  Brightness.light
+                              ? CupertinoColors.black
+                              : CupertinoColors.white,
+                        ),
+                      ),
+                    ),
                     style: TextStyle(
                       color: CupertinoTheme.brightnessOf(context) ==
                               Brightness.light
                           ? CupertinoColors.black
                           : CupertinoColors.white,
                     ),
+                    // suffix: Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: GestureDetector(
+                    //     onTap: () {
+                    //       setState(() {});
+                    //     },
+                    //     child: Icon(
+                    //       CupertinoIcons.mail,
+                    //       color: CupertinoTheme.brightnessOf(context) ==
+                    //               Brightness.light
+                    //           ? CupertinoColors.black
+                    //           : CupertinoColors.white,
+                    //     ),
+                    //   ),
+                    // ),
                   ),
                   if (_errorMessage.isNotEmpty && _emailController.text.isEmpty)
                     Text(
@@ -153,6 +184,21 @@ class _LoginPageState extends State<LoginPage> {
                     controller: _passwordController,
                     placeholder: 'Password',
                     obscureText: !_showPassword,
+                    prefix: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Icon(
+                          CupertinoIcons.lock,
+                          color: CupertinoTheme.brightnessOf(context) ==
+                                  Brightness.light
+                              ? CupertinoColors.black
+                              : CupertinoColors.white,
+                        ),
+                      ),
+                    ),
                     style: TextStyle(
                       color: CupertinoTheme.brightnessOf(context) ==
                               Brightness.light
@@ -184,23 +230,23 @@ class _LoginPageState extends State<LoginPage> {
                     Text(
                       _emptyFieldErrorMessage,
                       style: TextStyle(
-                        color: CupertinoColors.destructiveRed,
+                        color: Colors.red,
                         fontSize: 12.0,
                       ),
                     ),
-                  if (_errorMessage.isNotEmpty)
-                    Text(
-                      _errorMessage,
-                      style: TextStyle(
-                        color: CupertinoColors.destructiveRed,
-                        fontSize: 14.0,
-                      ),
-                    ),
+                  // if (_errorMessage.isNotEmpty)
+                  //   Text(
+                  //     _errorMessage,
+                  //     style: TextStyle(
+                  //       color: Colors.red,
+                  //       fontSize: 14.0,
+                  //     ),
+                  //   ),
                   SizedBox(
                     height: 30.0,
                   ),
                   CupertinoButton(
-                    color: CupertinoColors.white,
+                    color: Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -210,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(
                             fontFamily: 'Red Hat Display',
                             fontSize: 16,
-                            color: CupertinoColors.systemBlue,
+                            color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -227,13 +273,13 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                         fontFamily: 'Red Hat Display',
                         fontSize: 14,
-                        color: CupertinoColors.white,
+                        color: Colors.white,
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
-                        CupertinoPageRoute(
+                        MaterialPageRoute(
                           builder: (context) => RegistrationPage(),
                         ),
                       );

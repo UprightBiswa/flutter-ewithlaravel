@@ -1,4 +1,5 @@
 // ClassExamsPage.dart
+import 'package:elearning/ui/pages/quize_InstractionPage.dart';
 import 'package:elearning/ui/widgets/customlisttile.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -27,7 +28,19 @@ class ClassExamsPage extends StatelessWidget {
                   serialNumber: index + 1,
                   title: exam['exam_subject'],
                   onPressed: () {
-                   
+                   // Navigate to Exam Details page and pass exam data
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ExamDetailPage(
+                          examId: exam['id'],
+                          examSubject: exam['exam_subject'],
+                          examDate: exam['exam_date'],
+                          examDuration: exam['exam_duration'],
+                          // Add more properties as needed
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),

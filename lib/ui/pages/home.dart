@@ -1,4 +1,4 @@
-import 'package:elearning/main.dart';
+// import 'package:elearning/main.dart';
 import 'package:elearning/services/user_details_api_client.dart';
 import 'package:elearning/theme/config.dart';
 import 'package:elearning/ui/widgets/overlay.dart';
@@ -152,101 +152,94 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController controller = TextEditingController();
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+  // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  //     GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return CupertinoPageScaffold(
-      backgroundColor: CupertinoTheme.brightnessOf(context) ==
-                              Brightness.light
-                          ? CupertinoColors.black
-                          : CupertinoColors.white,
-                   
+      backgroundColor: CupertinoTheme.brightnessOf(context) == Brightness.dark
+          ? CupertinoColors.systemCyan.highContrastColor
+          : CupertinoColors.white,
+
       // backgroundColor: Colors.blue, // Example, replace with the desired color
 
       child: SafeArea(
-        child: RestartWidget(
-          child: RefreshIndicator(
-            key: _refreshIndicatorKey,
-            onRefresh: _refreshData,
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                SafeArea(
-                  child: CustomScrollView(
-                    slivers: <Widget>[
-                      SliverFixedExtentList(
-                        delegate: SliverChildListDelegate.fixed([Container()]),
-                        itemExtent: screenHeight * 0.43,
-                      ),
-                      SliverToBoxAdapter(
-                        child: SectionHeader(
-                          text: 'Recommended Lectures',
-                          onPressed: () {},
-                        ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 245,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 1,
-                            itemBuilder: (context, index) {
-                              return VideoCard(long: false);
-                            },
-                          ),
-                        ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: SectionHeader(
-                          text: 'Revision Lectures',
-                          onPressed: () {},
-                        ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 245,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (context, index) {
-                              return VideoCard(long: false);
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            SafeArea(
+              child: CustomScrollView(
+                slivers: <Widget>[
+                  SliverFixedExtentList(
+                    delegate: SliverChildListDelegate.fixed([Container()]),
+                    itemExtent: screenHeight * 0.43,
                   ),
-                ),
-                Positioned(
-                  top: 0,
-                  child: TopBar(
-                    controller: controller,
-                    expanded: true,
-                    onMenuTap: widget.onMenuTap,
-                    userName: widget.user.name, // Provide the user's name here
+                  SliverToBoxAdapter(
+                    child: SectionHeader(
+                      text: 'Recommended Lectures',
+                      onPressed: () {},
+                    ),
                   ),
-                ),
-              ],
+                  SliverToBoxAdapter(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 245,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 1,
+                        itemBuilder: (context, index) {
+                          return VideoCard(long: false);
+                        },
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: SectionHeader(
+                      text: 'Revision Lectures',
+                      onPressed: () {},
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 245,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return VideoCard(long: false);
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+            Positioned(
+              top: 0,
+              child: TopBar(
+                controller: controller,
+                expanded: true,
+                onMenuTap: widget.onMenuTap,
+                userName: widget.user.name, // Provide the user's name here
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Future<void> _refreshData() async {
-    await Future.delayed(Duration(seconds: 2));
-    // Trigger a rebuild of the UI only if this page is the topmost route
-    if (ModalRoute.of(context)?.isCurrent == true) {
-      setState(() {});
-    }
-    // Restart the app using RestartWidget
-    RestartWidget.restartApp(context);
-  }
+  // Future<void> _refreshData() async {
+  //   await Future.delayed(Duration(seconds: 2));
+  //   // Trigger a rebuild of the UI only if this page is the topmost route
+  //   if (ModalRoute.of(context)?.isCurrent == true) {
+  //     setState(() {});
+  //   }
+  //   // Restart the app using RestartWidget
+  //   RestartWidget.restartApp(context);
+  // }
 }

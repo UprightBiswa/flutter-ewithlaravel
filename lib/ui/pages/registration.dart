@@ -1,6 +1,7 @@
 import 'package:elearning/services/api_service.dart';
 import 'package:elearning/ui/pages/login.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -88,9 +89,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false, // Prevent keyboard overlap
-      child: Stack(
+      body: Stack(
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
@@ -123,6 +124,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   CupertinoTextField(
                     controller: _nameController,
                     placeholder: 'Name',
+                    prefix: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Icon(
+                          CupertinoIcons.person,
+                          color: CupertinoTheme.brightnessOf(context) ==
+                                  Brightness.light
+                              ? CupertinoColors.black
+                              : CupertinoColors.white,
+                        ),
+                      ),
+                    ),
                     style: TextStyle(
                       color: CupertinoTheme.brightnessOf(context) ==
                               Brightness.light
@@ -142,6 +158,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   CupertinoTextField(
                     controller: _emailController,
                     placeholder: 'Email',
+                    prefix: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Icon(
+                          CupertinoIcons.mail,
+                          color: CupertinoTheme.brightnessOf(context) ==
+                                  Brightness.light
+                              ? CupertinoColors.black
+                              : CupertinoColors.white,
+                        ),
+                      ),
+                    ),
                     style: TextStyle(
                       color: CupertinoTheme.brightnessOf(context) ==
                               Brightness.light
@@ -155,6 +186,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   CupertinoTextField(
                     controller: _phoneController,
                     placeholder: 'Phone Number',
+                    prefix: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Icon(
+                          CupertinoIcons.phone,
+                          color: CupertinoTheme.brightnessOf(context) ==
+                                  Brightness.light
+                              ? CupertinoColors.black
+                              : CupertinoColors.white,
+                        ),
+                      ),
+                    ),
                     style: TextStyle(
                       color: CupertinoTheme.brightnessOf(context) ==
                               Brightness.light
@@ -168,6 +214,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   CupertinoTextField(
                     controller: _addressController,
                     placeholder: 'User Address',
+                    prefix: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Icon(
+                          CupertinoIcons.home,
+                          color: CupertinoTheme.brightnessOf(context) ==
+                                  Brightness.light
+                              ? CupertinoColors.black
+                              : CupertinoColors.white,
+                        ),
+                      ),
+                    ),
                     style: TextStyle(
                       color: CupertinoTheme.brightnessOf(context) ==
                               Brightness.light
@@ -182,6 +243,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     controller: _passwordController,
                     placeholder: 'Password',
                     obscureText: !_passwordVisible,
+                    prefix: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Icon(
+                          CupertinoIcons.lock,
+                          color: CupertinoTheme.brightnessOf(context) ==
+                                  Brightness.light
+                              ? CupertinoColors.black
+                              : CupertinoColors.white,
+                        ),
+                      ),
+                    ),
                     style: TextStyle(
                       color: CupertinoTheme.brightnessOf(context) ==
                               Brightness.light
@@ -215,6 +291,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     controller: _confirmPasswordController,
                     placeholder: 'Confirm Password',
                     obscureText: !_passwordVisible,
+                    prefix: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Icon(
+                          CupertinoIcons.lock,
+                          color: CupertinoTheme.brightnessOf(context) ==
+                                  Brightness.light
+                              ? CupertinoColors.black
+                              : CupertinoColors.white,
+                        ),
+                      ),
+                    ),
                     style: TextStyle(
                       color: CupertinoTheme.brightnessOf(context) ==
                               Brightness.light
@@ -258,7 +349,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   if (_errorText != null)
                     Text(
                       _errorText!,
-                      style: TextStyle(color: CupertinoColors.systemRed),
+                      style: TextStyle(
+                          fontSize: 14, color: CupertinoColors.systemRed),
                     ),
                   SizedBox(
                     height: 10.0,

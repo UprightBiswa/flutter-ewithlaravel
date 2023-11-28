@@ -1,6 +1,6 @@
 import 'package:elearning/theme/box_icons_icons.dart';
 import 'package:elearning/ui/pages/login.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Onboarding extends StatefulWidget {
   @override
@@ -85,7 +85,7 @@ class _OnboardingState extends State<Onboarding> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
           ),
-          CupertinoButton(
+          MaterialButton(
               color: Color(0xFFFFFFFF),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -102,10 +102,8 @@ class _OnboardingState extends State<Onboarding> {
                 ],
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => LoginPage()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
               })
         ],
       ),
@@ -115,8 +113,8 @@ class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     createWidgets();
-    return CupertinoPageScaffold(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
@@ -145,7 +143,7 @@ class _OnboardingState extends State<Onboarding> {
               : Positioned(
                   bottom: 10,
                   right: 10,
-                  child: CupertinoButton(
+                  child: MaterialButton(
                     child: Icon(
                       pageNumber == 1
                           ? BoxIcons.bx_check
