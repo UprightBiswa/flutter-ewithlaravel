@@ -32,6 +32,7 @@ class LoginProvider extends ChangeNotifier {
     required String password,
     required BuildContext context,
   }) async {
+    print('LoginProvider: loginUser' + email + password);
     if (await _checkInternet()) {
       _setLoading(true);
 
@@ -41,11 +42,6 @@ class LoginProvider extends ChangeNotifier {
       };
 
       try {
-//         Error: DioException [connection timeout]: The request connection took longer than 0:00:00.000000. It was aborted.
-// I/flutter (17567): Error: SocketException: Connection timed out (OS Error: Connection timed out, errno = 110), address = 192.168.29.48, port = 43168
-// D/InputConnectionAdaptor(17567): The input method toggled cursor monitoring on
-// Restarted application in 3,537ms.
-
         final response = await _dio.post(
           '${BaseURL.baseUrl}student/login',
           data: data,
@@ -53,9 +49,15 @@ class LoginProvider extends ChangeNotifier {
             headers: {'Content-Type': 'application/json'},
           ),
         );
+// fullurl
+
+        print('Response Status Code: ${response.statusCode}');
+        print('Response Status Code: ${response.data}');
+
 
         final loginResponse = LoginResponseModel.fromJson(response.data);
         print(loginResponse.success);
+        print(loginResponse.message);
 
         if (loginResponse.success) {
           Provider.of<AuthState>(context, listen: false)
@@ -82,6 +84,10 @@ class LoginProvider extends ChangeNotifier {
 
   Future<void> fetchUserDetails(String token, BuildContext context) async {
     try {
+      print('Fetching user details');
+      //print token
+      print(token);
+
       final response = await _dio.get(
         '${BaseURL.baseUrl}student/dashboard',
         options: Options(
@@ -89,8 +95,9 @@ class LoginProvider extends ChangeNotifier {
         ),
       );
 
-      if (response.statusCode == 200 && response.data['success']) {
+      if (response.statusCode == 200) {
         final Map<String, dynamic> responseBody = json.decode(response.data);
+        print(responseBody);
         final user = User.fromJson(responseBody['user']);
         _userDetails = user;
         notifyListeners();
