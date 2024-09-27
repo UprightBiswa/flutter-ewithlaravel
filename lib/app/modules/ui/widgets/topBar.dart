@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:elearning/app/data/helpers/databasehelper/detabasehelper.dart';
-import 'package:elearning/app/services/api.dart';
 import 'package:elearning/app/controllers/theme/box_icons_icons.dart';
 import 'package:elearning/app/modules/ui/pages/course_DetailsPage.dart';
 import 'package:elearning/app/modules/ui/widgets/card.dart';

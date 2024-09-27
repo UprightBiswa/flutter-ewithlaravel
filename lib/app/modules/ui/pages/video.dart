@@ -195,8 +195,6 @@
 import 'package:elearning/app/controllers/theme/box_icons_icons.dart';
 import 'package:elearning/app/controllers/theme/config.dart';
 import 'package:elearning/app/modules/ui/widgets/card.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' as material;
 import 'package:flutter/material.dart';
 
 class VideoPage extends StatefulWidget {
@@ -345,11 +343,11 @@ class _VideoPageState extends State<VideoPage> {
                                 offset: Offset(0, 4))
                           ],
                           borderRadius: BorderRadius.circular(500)),
-                      child: material.FloatingActionButton(
+                      child: FloatingActionButton(
                           heroTag: "video",
                           elevation: 0,
                           highlightElevation: 0,
-                          backgroundColor: material.Colors.transparent,
+                          backgroundColor: Colors.transparent,
                           child: Icon(BoxIcons.bx_play, size: 40),
                           onPressed: () {}),
                     )),
@@ -370,14 +368,14 @@ class _VideoPageState extends State<VideoPage> {
                   Text(
                     "Attempt Test",
                     style: TextStyle(
-                        color: material.Colors.white,
+                        color: Colors.white,
                         fontFamily: 'Red Hat Display',
                         fontSize: 18),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child:
-                        Icon(BoxIcons.bx_pencil, color: material.Colors.white),
+                        Icon(BoxIcons.bx_pencil, color: Colors.white),
                   ),
                 ],
               ),

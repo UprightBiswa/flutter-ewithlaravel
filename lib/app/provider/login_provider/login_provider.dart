@@ -54,10 +54,10 @@ class LoginProvider extends ChangeNotifier {
         print('Response Status Code: ${response.statusCode}');
         print('Response Status Code: ${response.data}');
 
-
         final loginResponse = LoginResponseModel.fromJson(response.data);
         print(loginResponse.success);
         print(loginResponse.message);
+        await fetchUserDetails(loginResponse.token, context);
 
         if (loginResponse.success) {
           Provider.of<AuthState>(context, listen: false)

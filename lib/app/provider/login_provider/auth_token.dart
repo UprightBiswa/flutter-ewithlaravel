@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/user_model.dart';
-import 'login_provider.dart';
 
 class AuthState with ChangeNotifier {
   String? _accessToken;

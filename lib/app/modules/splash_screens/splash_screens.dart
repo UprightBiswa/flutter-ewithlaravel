@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../data/constants/constants.dart';
 import '../../model/user_model.dart';
@@ -66,7 +66,6 @@ class _SplashScreenState extends State<SplashScreen>
         bool isFirstLaunch = await checkFirstLaunch();
         if (isFirstLaunch) {
           Navigator.pushReplacement(
-            // ignore: duplicate_ignore
             context,
             MaterialPageRoute(builder: (context) => const Onboarding()),
           );
@@ -108,7 +107,6 @@ class _SplashScreenState extends State<SplashScreen>
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          // builder: (context) => LandingPage(userDetails: userDetails!),
           builder: (context) =>
               MenuDashboardLayout(userToken: AuthState().accessToken!),
         ),
@@ -130,7 +128,6 @@ class _SplashScreenState extends State<SplashScreen>
     return isFirstLaunch;
   }
 
-// Initialize the provider here
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -148,6 +145,10 @@ class _SplashScreenState extends State<SplashScreen>
     connectivityProvider = Provider.of<ConnectivityProvider>(context);
     bool isDarkMode(BuildContext context) =>
         Theme.of(context).brightness == Brightness.dark;
+
+    // Get the screen size using ResponsiveBreakpoints
+    final screenSize = ResponsiveBreakpoints.of(context).isMobile;
+
     return Scaffold(
       backgroundColor:
           isDarkMode(context) ? AppColors.kDarkBackground : AppColors.kPrimary,
@@ -170,11 +171,12 @@ class _SplashScreenState extends State<SplashScreen>
                         offset: Offset(0, _logoAnimation.value),
                         child: Column(
                           children: [
+                            // Responsive sizing for logo
                             Image.asset(
                               AppAssets.kLogo,
                               fit: BoxFit.contain,
-                              width: 100,
-                              height: 100,
+                              width: screenSize == MOBILE ? 80 : 100,
+                              height: screenSize == MOBILE ? 80 : 100,
                             ),
                             const SizedBox(height: 20),
                             Text(

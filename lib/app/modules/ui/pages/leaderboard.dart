@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-import 'package:elearning/app/services/api.dart';
 import 'package:elearning/app/services/user_details_api_client.dart';
 import 'package:elearning/app/controllers/theme/config.dart' as config;
 import 'package:elearning/app/modules/ui/widgets/card.dart';
